@@ -1,0 +1,88 @@
+/* ================= ESTILOS PERSONALIZADOS ================= */
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: #0f0f0f; 
+    color: #f3f3f3; 
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Colores de marca - Negro, Rojo y Blanco */
+.text-brand { color: #dc2626; }
+.bg-brand { background-color: #dc2626; }
+.border-brand { border-color: #dc2626; }
+.bg-brand-gradient { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); }
+
+/* Efecto Vidrio (Glassmorphism) */
+.glass {
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Animaciones de Entrada */
+.fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Hover Effects en Cards */
+.product-card { transition: all 0.3s ease; }
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.3); border-color: #dc2626; }
+.product-card .img-container { overflow: hidden; }
+.product-card img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.product-card:hover img { transform: scale(1.05); }
+
+/* Animación para iconos de próximamente */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.coming-soon-icon {
+    animation: bounce 2s ease-in-out infinite;
+}
+.coming-soon-card {
+    animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Modales */
+.modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.85); z-index: 100; 
+    display: flex; justify-content: center; align-items: center; 
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; 
+    padding: 20px;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+.modal-content { 
+    background: #1a1a1a; width: 100%; max-width: 500px; max-height: 85vh; 
+    overflow-y: auto; border-radius: 16px; padding: 24px; position: relative; 
+    transform: scale(0.9) translateY(20px); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #121212; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+
+/* Botón Flotante con pulso */
+.sticky-cart { 
+    position: fixed; bottom: 25px; right: 25px; z-index: 90; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    animation: bounceIn 0.5s;
+}
+@keyframes bounceIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* Notificación Toast */
+#toast {
+    visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 16px; position: fixed; z-index: 200; left: 50%; bottom: 90px; transform: translateX(-50%); font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s, bottom 0.3s; border-left: 4px solid #dc2626;
+}
+#toast.show { visibility: visible; opacity: 1; bottom: 100px; }
+
