@@ -105,8 +105,40 @@ function renderMenu() {
     
     comingSoonDiv.innerHTML = `
         <h3 class="text-3xl font-extrabold mb-6 text-white border-l-4 border-brand pl-4 flex items-center gap-3">
-            <i class="fas fa-clock text-brand"></i> PRÓXIMAMENTE
+            <i class="fas fa-clock text-brand"></i> SOLO DICIEMBRE
         </h3>
+
+        <!-- Temporada Navideña: Lasaña -->
+        <div class="mb-6">
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl shadow-lg border-2 border-gray-700 overflow-hidden p-6 relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent"></div>
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <h4 class="text-2xl font-extrabold text-white mb-2">🎄 Temporada Navideña — Lasaña</h4>
+                        <p class="text-gray-300 mb-4">Lasaña casera preparada para compartir. <strong class="text-brand">Favor de pedir con anticipación para que esté a tiempo y sin prisas.</strong></p>
+                        <ul class="text-gray-300 space-y-2">
+                            <li class="flex justify-between items-center"><span>Para 5 a 6 personas</span><span class="font-bold text-white">$800</span></li>
+                            <li class="flex justify-between items-center"><span>Para 10 a 12 personas</span><span class="font-bold text-white">$1600</span></li>
+                            <li class="flex justify-between items-center"><span>Para 18 a 20 personas</span><span class="font-bold text-white">$2200</span></li>
+                        </ul>
+
+                        <div class="mt-4 inline-block bg-brand/20 text-brand px-4 py-2 rounded-full text-xs font-bold">Temporada</div>
+
+                        <div class="mt-4 flex gap-3">
+                            <button onclick="openLasagnaOrderModal('5-6')" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (5-6) — $800</button>
+                            <button onclick="openLasagnaOrderModal('10-12')" class="w-full bg-[#2563eb] hover:bg-[#1e40af] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (10-12) — $1600</button>
+                            <button onclick="openLasagnaOrderModal('18-20')" class="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (18-20) — $2200</button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-1 grid grid-cols-2 gap-2">
+                        <img src="lasana_f1.jpg" alt="Lasaña 1" class="w-full h-28 object-cover rounded-lg border border-gray-700" onerror="this.src='https://placehold.co/300x200/333/fff?text=Sin+Imagen'">
+                        <img src="lasana_f2.jpg" alt="Lasaña 2" class="w-full h-28 object-cover rounded-lg border border-gray-700" onerror="this.src='https://placehold.co/300x200/333/fff?text=Sin+Imagen'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="coming-soon-card bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl shadow-lg border-2 border-gray-700 overflow-hidden p-8 text-center relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent"></div>
@@ -436,6 +468,134 @@ function sendToWhatsapp(e) {
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
+}
+
+// Función para abrir WhatsApp con pedido prellenado para la lasaña
+function openWhatsAppLasagna(sizeKey) {
+    const prices = {
+        '5-6': 800,
+        '10-12': 1600,
+        '18-20': 2200
+    };
+    const sizeLabel = {
+        '5-6': 'Para 5 a 6 personas',
+        '10-12': 'Para 10 a 12 personas',
+        '18-20': 'Para 18 a 20 personas'
+    };
+
+    const price = prices[sizeKey] || 0;
+    const label = sizeLabel[sizeKey] || sizeKey;
+
+    let message = `*🍝 PEDIDO - LASAÑA (Temporada Navideña)*\n`;
+    message += `Tamaño: ${label}\n`;
+    message += `Precio: $${price}\n`;
+    message += `\nPor favor completa los datos del pedido:\n`;
+    message += `Nombre: \n`;
+    message += `Dirección: \n`;
+    message += `Teléfono: \n`;
+    message += `Comentarios (opcional): \n`;
+    message += `\n*Favor de pedir con anticipación para que esté a tiempo y sin prisas.*`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
+// Abre modal para llenar datos antes de enviar pedido de lasaña
+function openLasagnaOrderModal(sizeKey) {
+    modalQty = 1; // reset quantity
+    const prices = {
+        '5-6': 800,
+        '10-12': 1600,
+        '18-20': 2200
+    };
+    const sizeLabel = {
+        '5-6': 'Para 5 a 6 personas',
+        '10-12': 'Para 10 a 12 personas',
+        '18-20': 'Para 18 a 20 personas'
+    };
+
+    const price = prices[sizeKey] || 0;
+    const label = sizeLabel[sizeKey] || sizeKey;
+
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerHTML = `
+        <div class="flex items-center gap-5 mb-6 pb-6 border-b border-gray-800">
+             <img src="lasana_f1.jpg" class="w-24 h-24 rounded-lg object-cover shadow-lg border border-gray-700" onerror="this.src='https://placehold.co/150x150/333/fff?text=IMG'">
+             <div>
+                <h3 class="text-2xl font-bold text-white leading-tight">Lasaña - Temporada Navideña</h3>
+                <p class="text-brand text-xl font-bold mt-1">$${price}</p>
+                <p class="text-gray-400 text-sm mt-1">${label}</p>
+             </div>
+        </div>
+
+        <form id="lasagna-form" onsubmit="sendLasagnaToWhatsapp(event)">
+            <input type="hidden" id="lasagna-size" value="${sizeKey}">
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Tu Nombre</label>
+                    <input id="lasagna-name" required class="w-full bg-[#121212] border border-gray-700 rounded-lg py-3 px-3 text-white mt-2" placeholder="Ej. Juan Pérez">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Dirección</label>
+                    <input id="lasagna-address" required class="w-full bg-[#121212] border border-gray-700 rounded-lg py-3 px-3 text-white mt-2" placeholder="Calle, Número, Colonia">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Teléfono</label>
+                    <input id="lasagna-phone" required class="w-full bg-[#121212] border border-gray-700 rounded-lg py-3 px-3 text-white mt-2" placeholder="55 0000 0000">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">Comentarios (opcional)</label>
+                    <textarea id="lasagna-comments" class="w-full bg-[#121212] border border-gray-700 rounded-lg py-3 px-3 text-white mt-2" rows="2" placeholder="Ej: Sin cebolla, llegada a las 7pm"></textarea>
+                </div>
+
+                <div class="flex items-center justify-between mt-2 bg-gray-800 p-3 rounded-lg border border-gray-700">
+                    <span class="text-white font-bold ml-2">Cantidad:</span>
+                    <div class="flex items-center bg-[#121212] rounded-lg p-1">
+                        <button type="button" onclick="adjustQty(-1)" class="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded text-white font-bold transition">-</button>
+                        <span id="modal-qty" class="font-bold text-xl w-10 text-center">1</span>
+                        <button type="button" onclick="adjustQty(1)" class="w-10 h-10 bg-brand hover:bg-orange-600 rounded text-white font-bold transition">+</button>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-xl shadow-lg transition">Enviar a WhatsApp</button>
+                </div>
+            </div>
+        </form>
+    `;
+
+    openModal('product-modal');
+}
+
+function sendLasagnaToWhatsapp(e) {
+    e.preventDefault();
+    const sizeKey = document.getElementById('lasagna-size').value;
+    const name = document.getElementById('lasagna-name').value.trim();
+    const address = document.getElementById('lasagna-address').value.trim();
+    const phone = document.getElementById('lasagna-phone').value.trim();
+    const comments = document.getElementById('lasagna-comments').value.trim();
+
+    const prices = { '5-6': 800, '10-12': 1600, '18-20': 2200 };
+    const sizeLabel = { '5-6': 'Para 5 a 6 personas', '10-12': 'Para 10 a 12 personas', '18-20': 'Para 18 a 20 personas' };
+
+    const price = prices[sizeKey] || 0;
+    const label = sizeLabel[sizeKey] || sizeKey;
+    const qty = parseInt(document.getElementById('modal-qty').innerText) || 1;
+    const subtotal = price * qty;
+
+    let message = `*🍝 NUEVO PEDIDO - LASAÑA (Temporada Navideña)*\n`;
+    message += `👤 Cliente: ${name}\n`;
+    message += `📞 Tel: ${phone}\n`;
+    message += `📍 Dirección: ${address}\n`;
+    message += `Tamaño: ${label} (${qty} unidad(es))\n`;
+    if (comments) message += `📝 Comentarios: ${comments}\n`;
+    message += `--------------------------------\n`;
+    message += `💰 Total: $${subtotal}\n`;
+    message += `\n*Favor de pedir con anticipación para que esté a tiempo y sin prisas.*`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    closeModal('product-modal');
 }
 
 // ==============================
