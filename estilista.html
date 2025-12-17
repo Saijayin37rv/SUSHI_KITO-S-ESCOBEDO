@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Estilista Michelle Diaz — Presentación</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		:root{
+			--accent: #ff85c1; /* more vivid pastel pink */
+			--accent-dark: #ff4f96; /* deeper vivid pink */
+			--bg: #f0f2f5; /* page background */
+			--card-bg: #ffffff; /* card backgrounds */
+			--muted: #606770; /* muted text */
+			--text: #202124;
+			--subtle-shadow: 0 6px 18px rgba(16,24,40,0.06);
+		}
+		body{ background: var(--bg); color: var(--text); }
+		.glass{ background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); box-shadow: 0 6px 20px rgba(16,24,40,0.06); }
+		.hero-card{ background: transparent; border-radius:0; box-shadow: none; transition: transform .18s ease, box-shadow .18s ease }
+	.hero-card:hover{ transform: none; box-shadow: none }
+		.text-accent{ color: var(--accent); }
+		.muted{ color: var(--muted); }
+		.service-card{ background: transparent; border-radius:0; box-shadow: none; }
+		/* subtle separators so sections read as one page but remain distinct */
+		section.service-card{ border-bottom: 1px solid rgba(0,0,0,0.04); padding-bottom:18px; margin-bottom:18px }
+		section.service-card:last-of-type{ border-bottom: none; margin-bottom:0 }
+		.btn-primary{ background: linear-gradient(90deg,var(--accent) 0%, var(--accent-dark) 100%); color: #fff; box-shadow: 0 6px 20px rgba(255,95,160,0.12); border:none; padding:10px 14px; border-radius:8px }
+		.btn-primary:hover{ transform: translateY(-2px); }
+		.btn-muted{ background: transparent; color: var(--muted); border:1px solid rgba(0,0,0,0.06); padding:8px 12px; border-radius:8px }
+		footer{ color: #6b6b6b; }
+
+		/* Gallery bubble / glass effect */
+		.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; align-items: center; }
+		.bubble { width: 110px; height: 110px; border-radius: 9999px; overflow: hidden; display: inline-block; background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.12)); box-shadow: 0 8px 30px rgba(99, 36, 80, 0.15), inset 0 1px 0 rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.35); backdrop-filter: blur(6px) saturate(1.2); transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;
+		}
+		.bubble img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transform:scale(1); transition: transform .45s cubic-bezier(.2,.9,.3,1); }
+		.bubble:hover{ transform: translateY(-6px) scale(1.04); box-shadow: 0 18px 40px rgba(99,36,80,0.25); }
+		.bubble:hover img{ transform: scale(1.12); }
+		@media (max-width:640px){ .bubble{ width:86px;height:86px } }
+
+		/* Page layout refinements */
+		.container-main{ max-width:1100px; margin:0 auto; }
+		.hero-grid{ display:grid; grid-template-columns: 360px 1fr; gap:32px; align-items:center; }
+		@media(max-width:900px){ .hero-grid{ grid-template-columns: 1fr; gap:18px } .container-main{ padding:0 18px } }
+
+		.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 16px; justify-items:center; align-items: center; }
+		.bubble { width: 105px; height: 105px; border-radius: 9999px; overflow: hidden; display: inline-block; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.12)); box-shadow: 0 12px 30px rgba(99, 36, 80, 0.12), inset 0 2px 0 rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(6px) saturate(1.2); transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s; cursor:zoom-in; }
+		.bubble img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1); transition: transform .45s cubic-bezier(.2,.9,.3,1); }
+		.bubble:hover{ transform: translateY(-8px) scale(1.04); box-shadow: 0 24px 48px rgba(99,36,80,0.22); }
+		.bubble:hover img{ transform: scale(1.12); }
+		@media (max-width:640px){ .bubble{ width:72px;height:72px } }
+
+		/* Section heading */
+		.section-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px }
+		.section-head h3{ margin:0; font-size:1.125rem; color:var(--text); }
+		.section-divider{ height:1px; background:linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent); flex:1 }
+
+		/* make anchors land below sticky header */
+		section{ scroll-margin-top: 92px }
+
+		/* Lightbox */
+		#lightbox{ position:fixed; inset:0; background: rgba(0,0,0,0.78); display:flex; align-items:center; justify-content:center; z-index:120; padding:24px; backdrop-filter: blur(4px); opacity:0; pointer-events:none; transition: opacity .18s ease }
+		#lightbox.open{ opacity:1; pointer-events:auto }
+		#lightbox .inner{ max-width:1100px; width:100%; max-height:92vh; position:relative; display:flex; align-items:center; justify-content:center }
+		#lightbox .media{ width:100%; height:auto; display:block; border-radius:12px; box-shadow: 0 18px 60px rgba(0,0,0,0.6); max-height:86vh; object-fit:contain }
+		#lightbox .media img{ width:100%; height:auto; object-fit:contain }
+		#lightbox .media video{ width:100%; height:auto; object-fit:contain }
+		#lightbox .close-btn{ position:absolute; right:12px; top:12px; background:rgba(255,255,255,0.95); border-radius:999px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow: 0 8px 24px rgba(16,24,40,0.08) }
+		#lightbox .mute-btn{ position:absolute; left:12px; top:12px; background:rgba(255,255,255,0.95); border-radius:999px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow: 0 8px 24px rgba(16,24,40,0.08) }
+		#lightbox.hidden{ display:none }
+
+		/* Carousel (cabello) styles */
+		.carousel{ position:relative; overflow:hidden; border-radius:12px }
+		.carousel .slides{ display:flex; transition: transform .45s cubic-bezier(.2,.9,.3,1); gap:14px; padding:12px }
+		.carousel .slide{ flex:0 0 calc(28.5% - 14px); max-width: calc(28.5% - 14px); border-radius:12px; overflow:hidden; background:var(--cream); display:flex; align-items:center; justify-content:center }
+		.carousel .slide img, .carousel .slide video{ width:100%; height:100%; object-fit:cover; object-position:center; display:block }
+
+		/* Slide caption overlay and focus styles */
+		.carousel .slide{ position:relative }
+		.carousel .slide-caption{ position:absolute; left:12px; right:12px; bottom:12px; background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45)); color:#fff; padding:8px 10px; border-radius:8px; font-size:0.9rem; display:block; opacity:0; transform: translateY(6px); transition: opacity .18s ease, transform .18s ease }
+		.carousel .slide:focus .slide-caption, .carousel .slide:hover .slide-caption{ opacity:1; transform: translateY(0) }
+		.carousel .slide:focus{ outline: 3px solid rgba(255,95,160,0.14); outline-offset:6px }
+
+		/* Typography refinements */
+		h1{ font-size:2.5rem; line-height:1.05; letter-spacing:-0.5px }
+		h3{ font-size:1.125rem; font-weight:700 }
+		p{ font-size:1rem; line-height:1.6; color:var(--muted) }
+		.carousel .controls{ position:absolute; left:8px; right:8px; top:50%; transform:translateY(-50%); display:flex; justify-content:space-between; pointer-events:none }
+		.carousel .controls button{ pointer-events:auto; background: rgba(255,255,255,0.9); border:none; width:44px; height:44px; border-radius:999px; display:flex; align-items:center; justify-content:center; box-shadow: 0 6px 20px rgba(16,24,40,0.08) }
+		@media(max-width:900px){ .carousel .slide{ flex:0 0 calc(60% - 14px); max-width: calc(60% - 14px) } }
+
+		/* Video thumbnail overlay */
+		.video-thumb{ position:relative; width:100%; height:100%; display:block; cursor:pointer }
+		.video-thumb img{ width:100%; height:100%; object-fit:cover; display:block }
+		.play-overlay{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:48px; height:48px; border-radius:999px; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.5); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+		.play-overlay svg{ width:20px; height:20px; color:#fff; fill:#fff }
+		/* Dots */
+		.carousel-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px }
+		.carousel-dots button{ width:10px; height:10px; border-radius:999px; border:none; background: rgba(0,0,0,0.12); }
+		.carousel-dots button.active{ background: var(--accent-dark); box-shadow: 0 6px 16px rgba(255,95,160,0.18); }
+
+
+		/* Floating WhatsApp button */
+		.whatsapp-float{ position:fixed; right:18px; bottom:18px; width:64px; height:64px; background: var(--accent); border-radius:9999px; display:flex; align-items:center; justify-content:center; box-shadow: 0 12px 34px rgba(16,24,40,0.12); z-index:140; transition: transform .12s ease; }
+		.whatsapp-float:hover{ transform: translateY(-4px); }
+		.whatsapp-float svg{ width:34px; height:34px; color:#fff; fill:#fff }
+
+		/* Centering and layout tweaks for the cabello section */
+		.centered-section { text-align: center; }
+
+		/* Sticky header */
+		header{ position:sticky; top:0; z-index:160; background: var(--bg); border-bottom:1px solid rgba(0,0,0,0.06) }
+		.centered-section .section-head{ justify-content:center }
+		.carousel-wrap{ max-width:920px; margin:0 auto; }
+	</style>
+</head>
+<body class="font-sans">
+	<header class="glass w-full py-4">
+		<div class="container mx-auto px-4 flex items-center justify-between">
+			<a href="index.html" class="text-accent font-extrabold flex items-center gap-3">
+				<img src="logo.jpg" alt="logo" class="w-10 h-10 object-cover rounded" onerror="this.src='https://placehold.co/80x80/333/fff?text=Logo'">
+				<span class="text-accent">SUSHI <span class="text-accent font-extrabold">KITO'S</span></span>
+			</a>
+			<a href="index.html" class="text-sm muted">Volver al Menú</a>
+		</div>
+	</header>
+
+	<main class="container-main px-4 py-12">
+		<!-- Small anchor nav under header -->
+		<nav class="mb-6 flex gap-4 items-center justify-center">
+			<a href="#uñas" class="text-sm muted hover:text-accent">Uñas</a>
+			<a href="#cabello" class="text-sm muted hover:text-accent">Cabello</a>
+			<a href="#cejas" class="text-sm muted hover:text-accent">Cejas</a>
+			<a href="#reservaciones" class="text-sm muted hover:text-accent">Reservaciones</a>
+		</nav>
+
+		<section class="hero-card rounded-xl p-8 shadow-lg">
+			<div class="hero-grid">
+				<div class="text-center">
+					<img src="perfil.jpg" alt="Michelle Diaz" class="w-72 h-72 rounded-xl object-cover border border-gray-200 shadow-lg mx-auto" onerror="this.src='https://placehold.co/420x420/f9a8d4/fff?text=Michelle'">
+				</div>
+
+				<div>
+					<h1 class="text-4xl font-extrabold text-accent">Michelle Diaz</h1>
+					<p class="text-sm font-semibold muted mt-1">Estilista & Estética </p>
+					<p class="muted mt-4">Estilista experta en transformaciones y bienestar personal. Michelle combina técnica, sensibilidad estética y productos profesionales para crear looks auténticos y duraderos. Agenda tu cita por WhatsApp para una valoración personalizada y un plan de cuidado hecho a tu medida.</p>
+
+					<!-- botones removidos: ahora usamos un botón flotante de WhatsApp -->
+
+					<div class="mt-8 text-sm muted" id="reservaciones">
+						<h3 class="text-accent font-bold mb-2">Reservaciones</h3>
+						<p>Reserva rápida por WhatsApp — horarios flexibles, atención a domicilio y paquetes especiales. Envía tu nombre, fecha preferida y una foto si deseas asesoría previa para aprovechar mejor tu cita.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Secciones with refined galleries -->
+		<div class="mt-8 space-y-10">
+			<section id="uñas" class="service-card p-6 rounded">
+				<div class="section-head">
+					<h3>Uñas</h3>
+					<div class="section-divider"></div>
+				</div>
+				<p class="muted mb-4">Uñas de impacto: gel, acrílico y esmaltado semipermanente con acabados impecables. Desde french clásico hasta nail art personalizado — higiene, durabilidad y estilo. Toca cualquier imagen para verla en grande y elegir tu diseño ideal.</p>
+				<div class="carousel-wrap">
+					<div class="carousel centered-section" id="unas-carousel">
+						<div class="slides" id="unas-slides">
+							<div class="slide"><img src="uñas.jpg" alt="uñas 1" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+1'"></div>
+							<div class="slide"><img src="uñas1.jpg" alt="uñas 2" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+2'"></div>
+							<div class="slide"><img src="uñas2.jpg" alt="uñas 3" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+3'"></div>
+							<div class="slide"><img src="uñas3.jpg" alt="uñas 4" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+4'"></div>
+							<div class="slide"><img src="uñas4.jpg" alt="uñas 5" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+5'"></div>
+							<div class="slide"><img src="uñas5.jpg" alt="uñas 6" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/f9a8d4/000?text=U%C3%B1as+6'"></div>
+						</div>
+						<div class="controls">
+							<button aria-label="Anterior" id="unas-prev">‹</button>
+							<button aria-label="Siguiente" id="unas-next">›</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="cabello" class="service-card p-6 rounded">
+				<div class="section-head">
+					<h3>Cabello</h3>
+					<div class="section-divider"></div>
+				</div>
+					<p class="muted mb-4">Cortes, color y tratamientos que devuelven vida al cabello. Servicios destacados: alisados profesionales, balayage, corte de temporada y terapias intensivas de hidratación. Incluye diagnóstico capilar y plan de cuidado post-servicio para mantener los resultados.</p>
+					<div class="carousel-wrap">
+					<div class="carousel centered-section" id="cabello-carousel">
+						<div class="slides" id="cabello-slides">
+							<div class="slide"><img src="cabello_p2.jpg" alt="cabello 1" onclick="openLightbox(this.datasetSrc||this.src)" data-src="cabello.jpg" onerror="this.src='https://placehold.co/600x400/fff1f5/000?text=Cabello+1'"></div>
+							<div class="slide"><img src="cabello_p21.jpg" alt="cabello 2" onclick="openLightbox(this.datasetSrc||this.src)" data-src="cabello1.jpg" onerror="this.src='https://placehold.co/600x400/fff1f5/000?text=Cabello+2'"></div>
+							<div class="slide"><img src="cabello1.jpg" alt="cabello 3" onclick="openLightbox(this.datasetSrc||this.src)" data-src="cabello_p2.jpg" onerror="this.src='https://placehold.co/600x400/fff1f5/000?text=Cabello+3'"></div>
+							<div class="slide"><img src="cabello.jpg" alt="cabello 4" onclick="openLightbox(this.datasetSrc||this.src)" data-src="cabello_p21.jpg" onerror="this.src='https://placehold.co/600x400/fff1f5/000?text=Cabello+4'"></div>
+							<div class="slide">
+								<div class="video-thumb" data-video="cabello_p1.mp4" onclick="openLightbox(this.dataset && this.dataset.video ? this.dataset.video : 'cabello_p1.mp4')">
+									<img src="cabello_p2.jpg" alt="video 1" onerror="this.src='https://placehold.co/600x400/000/fff?text=Video+1'">
+									<span class="play-overlay">
+										<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z" fill="#fff"/></svg>
+									</span>
+								</div>
+							</div>
+							<div class="slide">
+								<div class="video-thumb" data-video="cabello21.mp4" onclick="openLightbox(this.dataset && this.dataset.video ? this.dataset.video : 'cabello21.mp4')">
+									<img src="cabello1.jpg" alt="video 2" onerror="this.src='https://placehold.co/600x400/000/fff?text=Video+2'">
+									<span class="play-overlay">
+										<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z" fill="#fff"/></svg>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="controls">
+							<button aria-label="Anterior" id="cab-prev">‹</button>
+							<button aria-label="Siguiente" id="cab-next">›</button>
+						</div>
+					</div>
+			</section>
+
+			<section id="cejas" class="service-card p-6 rounded">
+				<div class="section-head">
+					<h3>Cejas</h3>
+					<div class="section-divider"></div>
+				</div>
+				<p class="muted mb-4">Diseño y micropigmentación de cejas con acabado natural y personalizado. Técnica precisa para armonizar tu rostro: forma, densidad y simetría. Incluye revisión y retoque de seguimiento para un resultado sutil y duradero.</p>
+				<div class="carousel-wrap">
+					<div class="carousel centered-section" id="cejas-carousel">
+						<div class="slides" id="cejas-slides">
+							<div class="slide"><img src="cejasp1.jpg" alt="cejas 1" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/fbe7f3/000?text=Cejas+1'"></div>
+							<div class="slide"><img src="cejasp1_1.jpg" alt="cejas 2" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/fbe7f3/000?text=Cejas+2'"></div>
+							<div class="slide"><img src="cejasp2.jpg" alt="cejas 3" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/fbe7f3/000?text=Cejas+3'"></div>
+							<div class="slide"><img src="cejasp2_1.jpg" alt="cejas 4" onclick="openLightbox(this.src)" onerror="this.src='https://placehold.co/600x400/fbe7f3/000?text=Cejas+4'"></div>
+						</div>
+						<div class="controls">
+							<button aria-label="Anterior" id="cejas-prev">‹</button>
+							<button aria-label="Siguiente" id="cejas-next">›</button>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<footer class="text-center text-gray-700 text-xs py-8">
+		&copy; 2025 Michelle Diaz — Estilista
+	</footer>
+
+	<!-- Floating WhatsApp button (Sushi Kito's number) -->
+	<a class="whatsapp-float" href="https://wa.me/5218110729156" target="_blank" aria-label="WhatsApp Sushi Kito's">
+		<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+			<path fill="#fff" d="M20.52 3.48A11.88 11.88 0 0012 .75C6.14.75 1.5 5.39 1.5 11.25c0 1.98.52 3.9 1.5 5.6L.75 23.25l6.7-1.7a11.5 11.5 0 005.8 1.5h.02c5.86 0 10.5-4.64 10.5-10.5 0-3.02-1.18-5.86-3.02-7.82zM12 21.5h-.02a10 10 0 01-5.18-1.43l-.37-.22-4 1 1.02-3.91-.24-.4A9.63 9.63 0 012.5 11.25C2.5 6.24 6.49 2.25 11.5 2.25c2.71 0 5.25 1.06 7.15 2.96 1.9 1.9 2.96 4.44 2.96 7.15 0 5.01-3.99 9-9 9z"/>
+			<path fill="#fff" d="M17.6 14.2c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.32.21-.6.07a6.25 6.25 0 01-1.84-1.14 6.86 6.86 0 01-1.27-1.58c-.13-.23 0-.35.11-.47.11-.11.26-.29.39-.44.12-.15.16-.26.25-.42.09-.16.05-.31-.02-.44-.07-.13-.64-1.54-.88-2.12-.23-.55-.46-.48-.64-.49l-.55-.01c-.19 0-.5.07-.77.34-.28.27-1.06 1.03-1.06 2.5 0 1.47 1.09 2.89 1.24 3.09.14.19 2.15 3.4 5.21 4.77 3.06 1.37 3.06.91 3.61.86.56-.05 1.82-.74 2.08-1.45.27-.71.27-1.33.19-1.45-.08-.12-.3-.18-.58-.32z"/>
+		</svg>
+	</a>
+
+	<!-- Lightbox element (hidden by default) -->
+	<div id="lightbox" class="hidden" onclick="closeLightbox(event)">
+		<div class="inner" onclick="event.stopPropagation()">
+			<button class="close-btn" aria-label="Cerrar" onclick="closeLightbox(event)">×</button>
+			<div id="lightbox-media" class="media"></div>
+		</div>
+	</div>
+
+	<script>
+		function openLightbox(src){
+			const lb = document.getElementById('lightbox');
+			const media = document.getElementById('lightbox-media');
+			// clear
+			media.innerHTML = '';
+			if(!src) return;
+			const isVideo = src.toLowerCase().endsWith('.mp4') || src.toLowerCase().includes('video');
+			if(isVideo){
+				const v = document.createElement('video');
+				v.controls = true;
+				v.autoplay = true;
+				v.playsInline = true;
+				v.muted = true; // start muted
+				v.className = 'media';
+				const s = document.createElement('source');
+				s.src = src;
+				s.type = 'video/mp4';
+				v.appendChild(s);
+				media.appendChild(v);
+				// add mute toggle button
+				setTimeout(()=>{
+					const muteBtn = document.createElement('button');
+					muteBtn.className = 'mute-btn';
+					muteBtn.setAttribute('aria-label','Silenciar / Reproducir sonido');
+					muteBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#111"><path d="M9 9v6h4l5 5V4l-5 5H9z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+					muteBtn.addEventListener('click', function(e){ e.stopPropagation(); v.muted = !v.muted; muteBtn.innerHTML = v.muted ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#111"><path d="M9 9v6h4l5 5V4l-5 5H9z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#111"><path d="M9 9v6h4l5 5V4l-5 5H9z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>' });
+					lb.querySelector('.inner').appendChild(muteBtn);
+				}, 50);
+
+				// attempt to load and play; show error if it fails
+				v.load();
+				v.play().catch(()=>{});
+				v.addEventListener('error', function(){
+					media.innerHTML = '<div style="color:#fff;text-align:center;padding:20px">No se pudo cargar el video.</div>';
+				});
+			} else {
+				const i = document.createElement('img');
+				i.src = src;
+				i.className = 'media';
+				media.appendChild(i);
+			}
+			// show
+			lb.classList.remove('hidden');
+			lb.classList.add('open');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox(e){
+			if(e && e.stopPropagation) e.stopPropagation();
+			const lb = document.getElementById('lightbox');
+			const media = document.getElementById('lightbox-media');
+			lb.classList.remove('open');
+			lb.classList.add('hidden');
+			media.innerHTML = '';
+			// remove any mute button if present
+			const mb = lb.querySelector('.mute-btn'); if(mb) mb.remove();
+			document.body.style.overflow = '';
+		}
+
+		// close on ESC
+		document.addEventListener('keydown', function(ev){
+			if(ev.key === 'Escape'){
+				const lb = document.getElementById('lightbox');
+				if(lb && !lb.classList.contains('hidden')) closeLightbox();
+			}
+		});
+
+		// Simple carousel logic for cabello
+		(function(){
+			const slidesWrap = document.getElementById('cabello-slides');
+			const prevBtn = document.getElementById('cab-prev');
+			const nextBtn = document.getElementById('cab-next');
+			if(!slidesWrap) return;
+			let index = 0;
+			const slides = slidesWrap.children;
+			function getVisible(){ return window.matchMedia('(max-width:900px)').matches ? 1 : 2; }
+
+			function update(){
+				if(!slides[0]) return;
+				const slideW = slides[0].getBoundingClientRect().width + 14; // account gap
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				index = Math.min(Math.max(0, index), maxIndex);
+				slidesWrap.style.transform = `translateX(${-index * slideW}px)`;
+			}
+
+			nextBtn && nextBtn.addEventListener('click', function(){
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				if(index < maxIndex) index++;
+				update();
+				updateDots();
+			});
+			prevBtn && prevBtn.addEventListener('click', function(){
+				if(index > 0) index--;
+				update();
+				updateDots();
+			});
+
+			// touch / drag support
+			let startX = 0, currentX = 0, isDown = false;
+			slidesWrap.addEventListener('pointerdown', function(e){ isDown = true; startX = e.clientX; slidesWrap.style.transition = 'none'; });
+			window.addEventListener('pointermove', function(e){ if(!isDown) return; currentX = e.clientX; const slideW = slides[0] ? slides[0].getBoundingClientRect().width + 14 : 0; slidesWrap.style.transform = `translateX(${ -index * slideW + (currentX - startX)}px)`; });
+			window.addEventListener('pointerup', function(e){ if(!isDown) return; isDown = false; slidesWrap.style.transition = ''; const diff = e.clientX - startX; const maxIndex = Math.max(0, slides.length - getVisible()); if(diff < -40 && index < maxIndex) index++; if(diff > 40 && index > 0) index--; update(); });
+
+			// dots
+			const dotsWrap = document.createElement('div'); dotsWrap.className = 'carousel-dots'; dotsWrap.id = 'cab-dots'; slidesWrap.parentNode.appendChild(dotsWrap);
+			function buildDots(){
+				dotsWrap.innerHTML = '';
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				for(let i=0;i<positions;i++){
+					const b = document.createElement('button');
+					b.setAttribute('aria-label', 'Ir a la posición ' + (i+1));
+					b.addEventListener('click', function(){ index = i; update(); updateDots(); });
+					dotsWrap.appendChild(b);
+				}
+				updateDots();
+			}
+			function updateDots(){
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				const buttons = dotsWrap.children;
+				for(let i=0;i<buttons.length;i++) buttons[i].classList.remove('active');
+				const active = Math.min(Math.max(0, index), positions-1);
+				if(buttons[active]) buttons[active].classList.add('active');
+			}
+
+			// recalc on resize
+			window.addEventListener('resize', function(){ buildDots(); update(); });
+			// initial update after images load
+			setTimeout(function(){ buildDots(); update(); }, 120);
+		})();
+
+		// Auto-generate slide captions from image alt text and add keyboard support
+		(function(){
+			const carousels = document.querySelectorAll('.carousel .slides');
+			carousels.forEach(slidesWrap => {
+				const slides = Array.from(slidesWrap.children);
+				slides.forEach(slide => {
+					// make slide focusable for keyboard users
+					slide.tabIndex = 0;
+					// create caption from img alt or data-caption
+					let captionText = '';
+					const img = slide.querySelector('img');
+					if(img && img.alt) captionText = img.alt;
+					const videoThumb = slide.querySelector('.video-thumb');
+					if(!captionText && videoThumb && videoThumb.dataset && videoThumb.dataset.video) captionText = 'Video — Ver transformación';
+					if(captionText){
+						const cap = document.createElement('div');
+						cap.className = 'slide-caption';
+						cap.textContent = captionText;
+						slide.appendChild(cap);
+					}
+
+					// keyboard: open lightbox on Enter or Space
+					slide.addEventListener('keydown', function(e){
+						if(e.key === 'Enter' || e.key === ' '){
+							e.preventDefault();
+							const targetImg = slide.querySelector('img');
+							const vThumb = slide.querySelector('.video-thumb');
+							if(vThumb && vThumb.dataset && vThumb.dataset.video) openLightbox(vThumb.dataset.video);
+							else if(targetImg) openLightbox(targetImg.src);
+						}
+					});
+				});
+			});
+		})();
+
+		// Simple carousel logic for Cejas
+		(function(){
+			const slidesWrap = document.getElementById('cejas-slides');
+			const prevBtn = document.getElementById('cejas-prev');
+			const nextBtn = document.getElementById('cejas-next');
+			if(!slidesWrap) return;
+			let index = 0;
+			const slides = slidesWrap.children;
+			function getVisible(){ return window.matchMedia('(max-width:900px)').matches ? 1 : 2; }
+
+			function update(){
+				if(!slides[0]) return;
+				const slideW = slides[0].getBoundingClientRect().width + 14;
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				index = Math.min(Math.max(0, index), maxIndex);
+				slidesWrap.style.transform = `translateX(${-index * slideW}px)`;
+			}
+
+			nextBtn && nextBtn.addEventListener('click', function(){
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				if(index < maxIndex) index++;
+				update();
+				updateDots();
+			});
+			prevBtn && prevBtn.addEventListener('click', function(){
+				if(index > 0) index--;
+				update();
+				updateDots();
+			});
+
+			let startX = 0, currentX = 0, isDown = false;
+			slidesWrap.addEventListener('pointerdown', function(e){ isDown = true; startX = e.clientX; slidesWrap.style.transition = 'none'; });
+			window.addEventListener('pointermove', function(e){ if(!isDown) return; currentX = e.clientX; const slideW = slides[0] ? slides[0].getBoundingClientRect().width + 14 : 0; slidesWrap.style.transform = `translateX(${ -index * slideW + (currentX - startX)}px)`; });
+			window.addEventListener('pointerup', function(e){ if(!isDown) return; isDown = false; slidesWrap.style.transition = ''; const diff = e.clientX - startX; const maxIndex = Math.max(0, slides.length - getVisible()); if(diff < -40 && index < maxIndex) index++; if(diff > 40 && index > 0) index--; update(); });
+
+			// dots
+			const dotsWrap = document.createElement('div'); dotsWrap.className = 'carousel-dots'; dotsWrap.id = 'cejas-dots'; slidesWrap.parentNode.appendChild(dotsWrap);
+			function buildDots(){
+				dotsWrap.innerHTML = '';
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				for(let i=0;i<positions;i++){
+					const b = document.createElement('button');
+					b.setAttribute('aria-label', 'Ir a la posición ' + (i+1));
+					b.addEventListener('click', function(){ index = i; update(); updateDots(); });
+					dotsWrap.appendChild(b);
+				}
+				updateDots();
+			}
+			function updateDots(){
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				const buttons = dotsWrap.children;
+				for(let i=0;i<buttons.length;i++) buttons[i].classList.remove('active');
+				const active = Math.min(Math.max(0, index), positions-1);
+				if(buttons[active]) buttons[active].classList.add('active');
+			}
+
+			// recalc on resize
+			window.addEventListener('resize', function(){ buildDots(); update(); });
+			// initial update after images load
+			setTimeout(function(){ buildDots(); update(); }, 120);
+		})();
+
+		// Simple carousel logic for Uñas (unas)
+		(function(){
+			const slidesWrap = document.getElementById('unas-slides');
+			const prevBtn = document.getElementById('unas-prev');
+			const nextBtn = document.getElementById('unas-next');
+			if(!slidesWrap) return;
+			let index = 0;
+			const slides = slidesWrap.children;
+			function getVisible(){ return window.matchMedia('(max-width:900px)').matches ? 1 : 2; }
+
+			function update(){
+				if(!slides[0]) return;
+				const slideW = slides[0].getBoundingClientRect().width + 14;
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				index = Math.min(Math.max(0, index), maxIndex);
+				slidesWrap.style.transform = `translateX(${-index * slideW}px)`;
+			}
+
+			nextBtn && nextBtn.addEventListener('click', function(){
+				const maxIndex = Math.max(0, slides.length - getVisible());
+				if(index < maxIndex) index++;
+				update();
+				updateDots();
+			});
+			prevBtn && prevBtn.addEventListener('click', function(){
+				if(index > 0) index--;
+				update();
+				updateDots();
+			});
+
+			let startX = 0, currentX = 0, isDown = false;
+			slidesWrap.addEventListener('pointerdown', function(e){ isDown = true; startX = e.clientX; slidesWrap.style.transition = 'none'; });
+			window.addEventListener('pointermove', function(e){ if(!isDown) return; currentX = e.clientX; const slideW = slides[0] ? slides[0].getBoundingClientRect().width + 14 : 0; slidesWrap.style.transform = `translateX(${ -index * slideW + (currentX - startX)}px)`; });
+			window.addEventListener('pointerup', function(e){ if(!isDown) return; isDown = false; slidesWrap.style.transition = ''; const diff = e.clientX - startX; const maxIndex = Math.max(0, slides.length - getVisible()); if(diff < -40 && index < maxIndex) index++; if(diff > 40 && index > 0) index--; update(); });
+
+			// dots
+			const dotsWrap = document.createElement('div'); dotsWrap.className = 'carousel-dots'; dotsWrap.id = 'unas-dots'; slidesWrap.parentNode.appendChild(dotsWrap);
+			function buildDots(){
+				dotsWrap.innerHTML = '';
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				for(let i=0;i<positions;i++){
+					const b = document.createElement('button');
+					b.setAttribute('aria-label', 'Ir a la posición ' + (i+1));
+					b.addEventListener('click', function(){ index = i; update(); updateDots(); });
+					dotsWrap.appendChild(b);
+				}
+				updateDots();
+			}
+			function updateDots(){
+				const visible = getVisible();
+				const positions = Math.max(1, slides.length - visible + 1);
+				const buttons = dotsWrap.children;
+				for(let i=0;i<buttons.length;i++) buttons[i].classList.remove('active');
+				const active = Math.min(Math.max(0, index), positions-1);
+				if(buttons[active]) buttons[active].classList.add('active');
+			}
+
+			// recalc on resize
+			window.addEventListener('resize', function(){ buildDots(); update(); });
+			// initial update after images load
+			setTimeout(function(){ buildDots(); update(); }, 120);
+		})();
+	</script>
+</body>
+</html>
