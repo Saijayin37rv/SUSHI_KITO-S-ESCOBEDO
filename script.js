@@ -2,6 +2,8 @@
 // CONFIGURACIÓN Y DATOS
 // ==============================
 const WHATSAPP_NUMBER = '5218110729156'; 
+// URL de la página estática de la estilista. Apunta a `estilista.html`.
+const ESTATICA_URL = 'estilista.html';
 
 const SAUCES = [
   'BBQ', 'Hot BBQ', 'Mango Habanero', 'Salsa Picante', 'Buffalo', 'Extra Picante', 'Lemon Pepper'
@@ -611,6 +613,21 @@ function closeModal(id) {
 }
 function openCart() {
     openModal('cart-modal');
+}
+
+// Abre la página estática de la estilista en una pestaña nueva
+function openEstatica() {
+    // Abre la página de la estilista en una nueva pestaña de forma segura (sin acceso a window.opener)
+    const newWin = window.open(ESTATICA_URL, '_blank');
+    if (newWin) newWin.opener = null;
+}
+
+// Asegurar que la función esté disponible en el scope global (previene "not defined" si el script
+// se carga como módulo o el entorno no expone declaracions de funciones al global por alguna razón).
+try {
+    window.openEstatica = openEstatica;
+} catch (e) {
+    // En entornos muy restringidos simplemente ignoramos la asignación.
 }
 
 function showToast() {
