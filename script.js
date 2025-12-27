@@ -106,40 +106,6 @@ function renderMenu() {
     comingSoonDiv.style.animationDelay = '0.3s';
     
     comingSoonDiv.innerHTML = `
-        <h3 class="text-3xl font-extrabold mb-6 text-white border-l-4 border-brand pl-4 flex items-center gap-3">
-            <i class="fas fa-clock text-brand"></i> SOLO DICIEMBRE
-        </h3>
-
-        <!-- Temporada Navideña: Lasaña -->
-        <div class="mb-6">
-            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl shadow-lg border-2 border-gray-700 overflow-hidden p-6 relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent"></div>
-                <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <div class="md:col-span-2">
-                        <h4 class="text-2xl font-extrabold text-white mb-2">🎄 Temporada Navideña — Lasaña</h4>
-                        <p class="text-gray-300 mb-4">Lasaña casera preparada para compartir. <strong class="text-brand">Favor de pedir con anticipación para que esté a tiempo y sin prisas.</strong></p>
-                        <ul class="text-gray-300 space-y-2">
-                            <li class="flex justify-between items-center"><span>Para 5 a 6 personas</span><span class="font-bold text-white">$800</span></li>
-                            <li class="flex justify-between items-center"><span>Para 10 a 12 personas</span><span class="font-bold text-white">$1600</span></li>
-                            <li class="flex justify-between items-center"><span>Para 18 a 20 personas</span><span class="font-bold text-white">$2200</span></li>
-                        </ul>
-
-                        <div class="mt-4 inline-block bg-brand/20 text-brand px-4 py-2 rounded-full text-xs font-bold">Temporada</div>
-
-                        <div class="mt-4 flex gap-3">
-                            <button onclick="openLasagnaOrderModal('5-6')" class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (5-6) — $800</button>
-                            <button onclick="openLasagnaOrderModal('10-12')" class="w-full bg-[#2563eb] hover:bg-[#1e40af] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (10-12) — $1600</button>
-                            <button onclick="openLasagnaOrderModal('18-20')" class="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold py-3 rounded-xl shadow-lg transition">Pedir (18-20) — $2200</button>
-                        </div>
-                    </div>
-
-                    <div class="md:col-span-1 grid grid-cols-2 gap-2">
-                        <img src="lasana_f1.jpg" alt="Lasaña 1" class="w-full h-28 object-cover rounded-lg border border-gray-700" onerror="this.src='https://placehold.co/300x200/333/fff?text=Sin+Imagen'">
-                        <img src="lasana_f2.jpg" alt="Lasaña 2" class="w-full h-28 object-cover rounded-lg border border-gray-700" onerror="this.src='https://placehold.co/300x200/333/fff?text=Sin+Imagen'">
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="coming-soon-card bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl shadow-lg border-2 border-gray-700 overflow-hidden p-8 text-center relative">
