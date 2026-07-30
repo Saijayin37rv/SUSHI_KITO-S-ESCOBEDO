@@ -1,0 +1,84 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Check required env
+        env:
+          VITE_WHATSAPP_NUMBER: ${{ secrets.VITE_WHATSAPP_NUMBER }}
+          VITE_SHEETS_WEBAPP_URL: ${{ secrets.VITE_SHEETS_WEBAPP_URL }}
+        run: |
+          missing=0
+          if [ -z "$VITE_WHATSAPP_NUMBER" ]; then
+            echo "::error::Falta el secret VITE_WHATSAPP_NUMBER (Settings → Secrets and variables → Actions)."
+            missing=1
+          fi
+          if [ -z "$VITE_SHEETS_WEBAPP_URL" ]; then
+            echo "::error::Falta el secret VITE_SHEETS_WEBAPP_URL."
+            missing=1
+          fi
+          exit $missing
+
+      # Vite incrusta VITE_* en el build. Sin esto, WhatsApp/Sheets/MP no funcionan en Pages.
+      - name: Build
+        env:
+          VITE_WHATSAPP_NUMBER: ${{ secrets.VITE_WHATSAPP_NUMBER }}
+          VITE_SHEETS_WEBAPP_URL: ${{ secrets.VITE_SHEETS_WEBAPP_URL }}
+          VITE_MERCADOPAGO_LINK: ${{ secrets.VITE_MERCADOPAGO_LINK }}
+        run: npm run build
+
+      - name: Validate build
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test -n "$(find dist/assets -name '*.js' -print -quit)"
+          test -n "$(find dist/assets -name '*.css' -print -quit)"
+          grep -q 'src="./assets/' dist/index.html
+          grep -q 'href="./assets/' dist/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

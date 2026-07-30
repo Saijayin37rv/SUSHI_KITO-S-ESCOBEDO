@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+
+  --color-ocean-950: #032830;
+  --color-ocean-900: #0a3d4a;
+  --color-ocean-800: #0e5566;
+  --color-ocean-700: #127789;
+  --color-ocean-600: #1a94a8;
+  --color-foam: #e8f6f8;
+  --color-sand: #f7f0e6;
+  --color-coral: #ff5a3c;
+  --color-coral-dark: #e04328;
+  --color-lime-sea: #c8f060;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    color: var(--color-ocean-950);
+    background: var(--color-sand);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    min-height: 100dvh;
+  }
+}
+
+@layer utilities {
+  .wave-bg {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 40%, rgba(26, 148, 168, 0.35), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255, 90, 60, 0.18), transparent),
+      linear-gradient(165deg, #032830 0%, #0a3d4a 45%, #127789 100%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
